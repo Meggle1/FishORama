@@ -36,7 +36,7 @@ namespace FishORama
 
         OrangeFish orangeFish1;
 
-
+        BlueFish blueFish1;
 
 
         /// CONSTRUCTOR - for the Simulation class - run once only when an object of the Simulation class is INSTANTIATED (created)
@@ -69,7 +69,8 @@ namespace FishORama
             orangeFish1 = new OrangeFish("OrangeFish", initXpos, initYpos, screen, tokenManager, rand);
             kernel.InsertToken(orangeFish1);
 
-
+            blueFish1 = new BlueFish("BlueFish", -100, -100, screen, tokenManager, rand);
+            kernel.InsertToken(blueFish1);
 
         }
 
@@ -82,7 +83,7 @@ namespace FishORama
             // Each fish object (sitting in a variable) must have Update() called on it here
 
             orangeFish1.Update();
-
+            blueFish1.Update();
         }
     }
 }
