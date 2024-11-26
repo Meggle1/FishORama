@@ -36,7 +36,10 @@ namespace FishORama
 
         OrangeFish orangeFish1;
 
+        int urchinWidth = 180;
+        int urchinHeight = 112;
 
+        Urchin[] urchinArray = new Urchin[3];
 
 
         /// CONSTRUCTOR - for the Simulation class - run once only when an object of the Simulation class is INSTANTIATED (created)
@@ -61,15 +64,28 @@ namespace FishORama
             // Code to create fish tokens and assign to their variables goes here
             // Remember to insert each token into the kernel
 
-            int initXpos = rand.Next(((screen.width / 2 * -1 + 1) + (orangeFishWidth / 2)), (screen.width / 2 - 1) + (orangeFishWidth / 2)); 
+            int initXpos = rand.Next(((screen.width / -2 + 1) + (orangeFishWidth / 2)), 
+                (screen.width / 2 - 1) - (orangeFishWidth / 2)); 
             // Minimum - Divides screen width by 2, then makes it a negative int. Also account for asset size and adjusts by a pixel to avoid it getting stuck | Maximum - Divides screen width by 2
-            int initYpos = rand.Next(((screen.height / 2 * -1 + 1 ) + (orangeFishHeight / 2)), (screen.height / 2 - 1) + (orangeFishHeight / 2)); 
+            int initYpos = rand.Next(((screen.height / -2 + 1 ) + (orangeFishHeight / 2)), 
+                (screen.height / 2 - 1) - (orangeFishHeight / 2)); 
             // Same as above, for screen height and asset height
 
             orangeFish1 = new OrangeFish("OrangeFish", initXpos, initYpos, screen, tokenManager, rand);
             kernel.InsertToken(orangeFish1);
 
+            for (int i = 0; i < urchinArray.Length; i++)
+            {
+                int UinitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)), 
+                    (screen.width / 2 - 1) - (urchinWidth / 2));
+                int UinitYpos = rand.Next(((screen.height / -2 + 1) + (urchinHeight / 2)), 
+                    (screen.height / -4 - 1) - (urchinHeight / 2));
+                Urchin tempUrchin = new Urchin("Urchin", UinitXpos, UinitYpos, screen, tokenManager, rand);
+                urchinArray[i] = tempUrchin;
+                kernel.InsertToken(tempUrchin);
+            }
 
+            
 
         }
 
@@ -82,6 +98,11 @@ namespace FishORama
             // Each fish object (sitting in a variable) must have Update() called on it here
 
             orangeFish1.Update();
+
+            foreach (Urchin fish in urchinArray)
+            {
+            fish.Update(); 
+            }
 
         }
     }

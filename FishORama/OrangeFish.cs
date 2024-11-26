@@ -30,8 +30,8 @@ namespace FishORama
         // *** ADD YOUR CLASS VARIABLES HERE *** 
         Random rand;
 
-        int xSpeed;
-        int ySpeed;
+        float xSpeed;
+        float ySpeed;
         
         int assetHeight = 86;
         int assetWidth = 128;

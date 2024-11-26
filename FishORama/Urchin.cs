@@ -12,7 +12,7 @@ using System.Diagnostics.Eventing.Reader;
 
 namespace FishORama
 {
-    /// CLASS: OrangeFish - this class is structured as a FishORama engine Token class
+    /// CLASS: Urchin - this class is structured as a FishORama engine Token class
     /// It contains all the elements required to draw a token to screen and update it (for movement etc)
     class Urchin : IDraw
     {
@@ -36,7 +36,7 @@ namespace FishORama
         int assetHeight = 86;
         int assetWidth = 128;
 
-        /// CONSTRUCTOR: OrangeFish Constructor
+        /// CONSTRUCTOR: Urchin Constructor
         /// The elements in the brackets are PARAMETERS, which will be covered later in the course
         public Urchin(string pTextureID, float pXpos, float pYpos, Screen pScreen, ITokenManager pTokenManager, Random pRand)
         {
@@ -51,7 +51,6 @@ namespace FishORama
             rand = pRand;
 
             // *** ADD OTHER INITIALISATION (class setup) CODE HERE ***
-            
 
 
         }
@@ -60,7 +59,8 @@ namespace FishORama
         /// Write the movement control code here
         public void Update()
         {
-            
+            // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
+
 
         }
 
