@@ -33,8 +33,8 @@ namespace FishORama
         int xSpeed;
         int ySpeed;
         
-        int assetHeight = 86;
-        int assetWidth = 128;
+        int assetHeight = 112;
+        int assetWidth = 180;
 
         /// CONSTRUCTOR: Urchin Constructor
         /// The elements in the brackets are PARAMETERS, which will be covered later in the course
@@ -51,7 +51,7 @@ namespace FishORama
             rand = pRand;
 
             // *** ADD OTHER INITIALISATION (class setup) CODE HERE ***
-
+            xSpeed = rand.Next(1, 4);
 
         }
 
@@ -60,6 +60,17 @@ namespace FishORama
         public void Update()
         {
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
+            xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
+
+            if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the top
+            {
+                xDirection = -1;
+            }
+            else if (xPosition < ((screen.width / -2) + (assetWidth / 2))) // if it hits a bottom border, turn it around
+            {
+                xDirection = 1;
+            }
+
 
 
         }

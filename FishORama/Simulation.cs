@@ -31,14 +31,15 @@ namespace FishORama
         Random rand;
 
             // Orange Fish
+        int orangeFishHeight = 86;
         int orangeFishWidth = 128;
-        int orangeFishHeight = 64;
+        
 
         OrangeFish orangeFish1;
 
-        int urchinWidth = 180;
         int urchinHeight = 112;
-
+        int urchinWidth = 180;
+        
         Urchin[] urchinArray = new Urchin[3];
 
 
@@ -66,7 +67,8 @@ namespace FishORama
 
             int initXpos = rand.Next(((screen.width / -2 + 1) + (orangeFishWidth / 2)), 
                 (screen.width / 2 - 1) - (orangeFishWidth / 2)); 
-            // Minimum - Divides screen width by 2, then makes it a negative int. Also account for asset size and adjusts by a pixel to avoid it getting stuck | Maximum - Divides screen width by 2
+            /* Minimum - Divides screen width by 2, then makes it a negative int. 
+            Also account for asset size and adjusts by a pixel to avoid it getting stuck | Maximum - Divides screen width by 2 */
             int initYpos = rand.Next(((screen.height / -2 + 1 ) + (orangeFishHeight / 2)), 
                 (screen.height / 2 - 1) - (orangeFishHeight / 2)); 
             // Same as above, for screen height and asset height
