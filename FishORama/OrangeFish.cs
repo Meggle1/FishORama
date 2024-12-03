@@ -44,16 +44,16 @@ namespace FishORama
             textureID = pTextureID;
             xPosition = pXpos;
             yPosition = pYpos;
-            xDirection = 1;
-            yDirection = 1;
+            xDirection = 0;
+            yDirection = 0;
             screen = pScreen;
             tokenManager = pTokenManager;
             rand = pRand;
 
             // *** ADD OTHER INITIALISATION (class setup) CODE HERE ***
-            xSpeed = rand.Next(2, 6); // randomises horizontal speed between the ranges
-            ySpeed = xSpeed / 2;
-
+            xSpeed = 10;
+            ySpeed = 10;
+            
         }
 
         /// METHOD: Update - will be called repeatedly by the Update loop in Simulation
@@ -61,32 +61,43 @@ namespace FishORama
         public void Update()
         {
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
-            xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
 
-            if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the right border
+            xPosition += xSpeed * xDirection;
+
+            yPosition += ySpeed * yDirection;
+
+            int radius = 200;
+
+            // top-left
+
+            if (xPosition <= (radius * -1) && yPosition >= radius)
             {
-                if (rand.Next(0, 4) == 1) yDirection *= -1;
-                xDirection = -1;
+               xDirection = 1;
+               yDirection = 0;
             }
-            else if (xPosition < ((screen.width / 2 * -1) + (assetWidth / 2))) // if it hits the left border
-            {
-                if (rand.Next(0, 4) == 1) yDirection *= -1;
-                xDirection = 1;
-            } 
 
-            yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
+            // top-right
 
-            if (yPosition > ((screen.height / 2) - (assetHeight / 2))) // if it hits the top
+            if (xPosition >= radius && yPosition >= radius)
             {
-                if (rand.Next(0, 2) == 1) xDirection *= -1; // Flips a coin to change it's vertical direction when hitting the border, if its 1 flip the x direction
+                xDirection = 0;
                 yDirection = -1;
             }
-            else if (yPosition < ((screen.height / 2 * -1) + (assetHeight / 2))) // if it hits a bottom border, turn it around
+
+            // bot-right
+            if (xPosition >= radius && yPosition <= (radius * -1))
             {
-                if (rand.Next(0, 2) == 1) xDirection *= -1;
-                yDirection = 1;  // If coin flip is 0, dont change its vert 
+                xDirection = -1;
+                yDirection = 0;
             }
-            
+
+            // bot-left
+            if (xPosition <= (radius * -1) && yPosition <= (radius * -1))
+            {
+                xDirection = 0;
+                yDirection = 1;
+            }
+
 
         }
 

@@ -36,7 +36,8 @@ namespace FishORama
 
         OrangeFish orangeFish1;
 
-        BlueFish blueFish1;
+        OrangeFish orangeFish2;
+
 
 
         /// CONSTRUCTOR - for the Simulation class - run once only when an object of the Simulation class is INSTANTIATED (created)
@@ -61,16 +62,17 @@ namespace FishORama
             // Code to create fish tokens and assign to their variables goes here
             // Remember to insert each token into the kernel
 
-            int initXpos = rand.Next(((screen.width / 2 * -1 + 1) + (orangeFishWidth / 2)), (screen.width / 2 - 1) + (orangeFishWidth / 2)); 
+            int initXpos = -200; 
             // Minimum - Divides screen width by 2, then makes it a negative int. Also account for asset size and adjusts by a pixel to avoid it getting stuck | Maximum - Divides screen width by 2
-            int initYpos = rand.Next(((screen.height / 2 * -1 + 1 ) + (orangeFishHeight / 2)), (screen.height / 2 - 1) + (orangeFishHeight / 2)); 
+            int initYpos = 200; 
             // Same as above, for screen height and asset height
 
             orangeFish1 = new OrangeFish("OrangeFish", initXpos, initYpos, screen, tokenManager, rand);
             kernel.InsertToken(orangeFish1);
 
-            blueFish1 = new BlueFish("BlueFish", -100, -100, screen, tokenManager, rand);
-            kernel.InsertToken(blueFish1);
+            orangeFish2 = new OrangeFish("OrangeFish", 0, 0, screen, tokenManager, rand);
+            kernel.InsertToken(orangeFish2);
+
 
         }
 
@@ -82,8 +84,7 @@ namespace FishORama
             // *** ADD YOUR UPDATE CODE HERE ***
             // Each fish object (sitting in a variable) must have Update() called on it here
 
-            orangeFish1.Update();
-            blueFish1.Update();
+            orangeFish1.Update(); 
         }
     }
 }
