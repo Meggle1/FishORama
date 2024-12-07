@@ -34,14 +34,25 @@ namespace FishORama
         int orangeFishHeight = 86;
         int orangeFishWidth = 128;
         
-
         OrangeFish orangeFish1;
 
+            // Urchin
         int urchinHeight = 112;
         int urchinWidth = 180;
         
         Urchin[] urchinArray = new Urchin[3];
 
+            // Seahorse
+        int seahorseHeight = 128;
+        int seahorseWidth = 74;
+
+        Seahorse[] seahorseArray = new Seahorse[5];
+
+            // Piranha
+        int piranha1Height = 128;
+        int piranha1Width = 132; 
+
+        Piranha1 piranha1;
 
         /// CONSTRUCTOR - for the Simulation class - run once only when an object of the Simulation class is INSTANTIATED (created)
         /// Use constructors to set up the state of a class
@@ -65,29 +76,56 @@ namespace FishORama
             // Code to create fish tokens and assign to their variables goes here
             // Remember to insert each token into the kernel
 
+            // Orange Fish
             int initXpos = rand.Next(((screen.width / -2 + 1) + (orangeFishWidth / 2)), 
                 (screen.width / 2 - 1) - (orangeFishWidth / 2)); 
-            /* Minimum - Divides screen width by 2, then makes it a negative int. 
-            Also account for asset size and adjusts by a pixel to avoid it getting stuck | Maximum - Divides screen width by 2 */
+                /* Minimum - Divides screen width by 2, then makes it a negative int. 
+                Also account for asset size and adjusts by a pixel to avoid it getting stuck | Maximum - Divides screen width by 2 */
+
             int initYpos = rand.Next(((screen.height / -2 + 1 ) + (orangeFishHeight / 2)), 
                 (screen.height / 2 - 1) - (orangeFishHeight / 2)); 
-            // Same as above, for screen height and asset height
+                // Same as above, for screen height and asset height
 
-            orangeFish1 = new OrangeFish("OrangeFish", initXpos, initYpos, screen, tokenManager, rand);
+            orangeFish1 = new OrangeFish("OrangeFish", initXpos, initYpos, screen, tokenManager, rand); // Single Orange Fish token
             kernel.InsertToken(orangeFish1);
 
+            // Piranha1
+            int P1initXpos = rand.Next(((screen.width / -2 + 1) + (piranha1Width / 2)),
+                (screen.width / 2 - 1) - (piranha1Width / 2));
+            
+            int P1initYpos = rand.Next((((screen.height / 2) - (screen.height * 2 / 3)) + (piranha1Height / 2)), /// < -- Double check the maths for this
+                (screen.height / 2 - 1) - (piranha1Height / 2));
+
+            piranha1 = new Piranha1("Piranha1", P1initXpos, P1initYpos, screen, tokenManager, rand); // Single Piranha1 token
+            kernel.InsertToken(piranha1);
+
+
+            // Urchin
             for (int i = 0; i < urchinArray.Length; i++)
             {
-                int UinitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)), 
+                int tempInitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)), 
                     (screen.width / 2 - 1) - (urchinWidth / 2));
-                int UinitYpos = rand.Next(((screen.height / -2 + 1) + (urchinHeight / 2)), 
+                int tempInitYpos = rand.Next(((screen.height / -2 + 1) + (urchinHeight / 2)), 
                     (screen.height / -4 - 1) - (urchinHeight / 2));
-                Urchin tempUrchin = new Urchin("Urchin", UinitXpos, UinitYpos, screen, tokenManager, rand);
+                Urchin tempUrchin = new Urchin("Urchin", tempInitXpos, tempInitYpos, screen, tokenManager, rand);
                 urchinArray[i] = tempUrchin;
                 kernel.InsertToken(tempUrchin);
             }
 
-            
+            // Seahorse
+            for (int i = 0; i < seahorseArray.Length; i++)
+            {
+                int SinitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)),
+                    (screen.width / 2 - 1) - (urchinWidth / 2));
+                int SinitYpos = rand.Next(((screen.height / -2 + 1) + (urchinHeight / 2)),
+                    (screen.height / -4 - 1) - (urchinHeight / 2));
+                Seahorse tempSeahorse = new Seahorse("Seahorse", SinitXpos, SinitYpos, screen, tokenManager, rand);
+                seahorseArray[i] = tempSeahorse;
+                kernel.InsertToken(tempSeahorse);
+            }
+
+
+
 
         }
 
@@ -101,11 +139,17 @@ namespace FishORama
 
             orangeFish1.Update();
 
+            piranha1.Update();
+
             foreach (Urchin fish in urchinArray)
             {
             fish.Update(); 
             }
 
+            foreach (Seahorse fish in seahorseArray) 
+            { 
+            fish.Update(); 
+            }
         }
     }
 }
