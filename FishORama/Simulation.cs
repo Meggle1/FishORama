@@ -117,8 +117,8 @@ namespace FishORama
             {
                 int SinitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)), // Random starting position within constraints of screen (and accounting for asset size)
                     (screen.width / 2 - 1) - (urchinWidth / 2));
-                int SinitYpos = rand.Next(((screen.height / -2 + 1) + (urchinHeight / 2)),
-                    (screen.height / -4 - 1) - (urchinHeight / 2));
+                int SinitYpos = rand.Next(((screen.height / -2 + 1) + (seahorseHeight / 2)),
+                (screen.height / 2 - 1) - (seahorseHeight / 2));
                 Seahorse tempSeahorse = new Seahorse("Seahorse", SinitXpos, SinitYpos, screen, tokenManager, rand);
                 seahorseArray[i] = tempSeahorse;
                 kernel.InsertToken(tempSeahorse);

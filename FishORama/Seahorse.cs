@@ -34,6 +34,7 @@ namespace FishORama
         int assetHeight = 128;
         int assetWidth = 74;
 
+        float zigzagYStart;
         /// CONSTRUCTOR: Seahorse Constructor
         /// The elements in the brackets are PARAMETERS, which will be covered later in the course
         public Seahorse(string pTextureID, float pXpos, float pYpos, Screen pScreen, ITokenManager pTokenManager, Random pRand)
@@ -52,6 +53,7 @@ namespace FishORama
             xSpeed = rand.Next(2, 6); // randomises horizontal speed between the ranges
             ySpeed = xSpeed;
 
+            zigzagYStart = pYpos;
         }
 
         /// METHOD: Update - will be called repeatedly by the Update loop in Simulation
@@ -61,11 +63,22 @@ namespace FishORama
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
             xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
 
+            yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
+
+
+            // Zig Zag Behaviour
+            if (yPosition > (zigzagYStart + 50))
+            {
+                yDirection = -1;
+            }
+            else if (yPosition < (zigzagYStart - 50))
+            {
+                yDirection = 1;
+            }
 
 
 
-
-            // Boundary behaviour
+            // Boundary Constraints
             if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the right border
             {
                 xDirection = -1;
@@ -74,8 +87,6 @@ namespace FishORama
             {
                 xDirection = 1;
             }
-
-            yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
 
             if (yPosition > ((screen.height / 2) - (assetHeight / 2))) // if it hits the top
             {

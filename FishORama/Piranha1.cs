@@ -73,6 +73,12 @@ namespace FishORama
                 if (rand.Next(0, 4) == 1) yDirection *= -1;
                 xDirection = 1;
             }
+
+            if (tokenManager != null)
+            {
+
+            }
+
         }
 
         /// METHOD: Draw - Called repeatedly by FishORama engine to draw token on screen
