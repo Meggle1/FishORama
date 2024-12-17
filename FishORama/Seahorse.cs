@@ -61,6 +61,11 @@ namespace FishORama
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
             xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
 
+
+
+
+
+            // Boundary behaviour
             if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the right border
             {
                 xDirection = -1;
@@ -78,7 +83,7 @@ namespace FishORama
             }
             else if (yPosition < ((screen.height / 2 * -1) + (assetHeight / 2))) // if it hits a bottom border, turn it around
             {
-                yDirection = 1;  // If coin flip is 0, dont change its vert 
+                yDirection = 1;
             }
 
 

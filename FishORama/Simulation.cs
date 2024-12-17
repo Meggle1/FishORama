@@ -40,13 +40,13 @@ namespace FishORama
         int urchinHeight = 112;
         int urchinWidth = 180;
         
-        Urchin[] urchinArray = new Urchin[3];
+        Urchin[] urchinArray = new Urchin[3]; // Creates array and defines size
 
-            // Seahorse
+        // Seahorse
         int seahorseHeight = 128;
         int seahorseWidth = 74;
 
-        Seahorse[] seahorseArray = new Seahorse[5];
+        Seahorse[] seahorseArray = new Seahorse[5]; // Creates array and defines size
 
             // Piranha
         int piranha1Height = 128;
@@ -93,7 +93,7 @@ namespace FishORama
             int P1initXpos = rand.Next(((screen.width / -2 + 1) + (piranha1Width / 2)),
                 (screen.width / 2 - 1) - (piranha1Width / 2));
             
-            int P1initYpos = rand.Next((((screen.height / 2) - (screen.height * 2 / 3)) + (piranha1Height / 2)), /// < -- Double check the maths for this
+            int P1initYpos = rand.Next((((screen.height / 2) - (screen.height * 2 / 3)) + (piranha1Height / 2)),
                 (screen.height / 2 - 1) - (piranha1Height / 2));
 
             piranha1 = new Piranha1("Piranha1", P1initXpos, P1initYpos, screen, tokenManager, rand); // Single Piranha1 token
@@ -103,7 +103,7 @@ namespace FishORama
             // Urchin
             for (int i = 0; i < urchinArray.Length; i++)
             {
-                int tempInitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)), 
+                int tempInitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)), // Random starting position within constraints of screen (and accounting for asset size)
                     (screen.width / 2 - 1) - (urchinWidth / 2));
                 int tempInitYpos = rand.Next(((screen.height / -2 + 1) + (urchinHeight / 2)), 
                     (screen.height / -4 - 1) - (urchinHeight / 2));
@@ -115,7 +115,7 @@ namespace FishORama
             // Seahorse
             for (int i = 0; i < seahorseArray.Length; i++)
             {
-                int SinitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)),
+                int SinitXpos = rand.Next(((screen.width / -2 + 1) + (urchinWidth / 2)), // Random starting position within constraints of screen (and accounting for asset size)
                     (screen.width / 2 - 1) - (urchinWidth / 2));
                 int SinitYpos = rand.Next(((screen.height / -2 + 1) + (urchinHeight / 2)),
                     (screen.height / -4 - 1) - (urchinHeight / 2));

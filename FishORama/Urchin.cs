@@ -36,6 +36,7 @@ namespace FishORama
         int assetHeight = 112;
         int assetWidth = 180;
 
+        int xStartSpeed;
         /// CONSTRUCTOR: Urchin Constructor
         /// The elements in the brackets are PARAMETERS, which will be covered later in the course
         public Urchin(string pTextureID, float pXpos, float pYpos, Screen pScreen, ITokenManager pTokenManager, Random pRand)
@@ -52,7 +53,7 @@ namespace FishORama
 
             // *** ADD OTHER INITIALISATION (class setup) CODE HERE ***
             xSpeed = rand.Next(1, 4);
-
+            xStartSpeed = xSpeed;
         }
 
         /// METHOD: Update - will be called repeatedly by the Update loop in Simulation
@@ -62,16 +63,32 @@ namespace FishORama
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
             xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
 
-            if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the top
+            if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the right border, turn it around
             {
                 xDirection = -1;
+                xPosition = (screen.width / 2) - (assetWidth / 2); // Teleports it back if it goes off screen (For chicken leg functionality)
             }
-            else if (xPosition < ((screen.width / -2) + (assetWidth / 2))) // if it hits a bottom border, turn it around
+            else if (xPosition < ((screen.width / -2) + (assetWidth / 2))) // if it hits a left border, turn it around
             {
                 xDirection = 1;
+                xPosition = (screen.width / -2) + (assetWidth / 2); // Teleports it back if it goes off screen (For chicken leg functionality)
             }
 
-
+            if (tokenManager.ChickenLeg != null) 
+            {
+                xSpeed = 6; // Sets running away speed
+                if (tokenManager.ChickenLeg.Position.X > xPosition)
+                {
+                    xDirection = -1;
+ 
+                } else
+                {
+                    xDirection = 1;
+                }
+            } else
+            {
+                xSpeed = xStartSpeed; // Returns to normal speed if chicken leg isnt present
+            }
 
         }
 
