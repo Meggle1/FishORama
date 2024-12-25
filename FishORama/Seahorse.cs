@@ -69,6 +69,8 @@ namespace FishORama
             zigzagYStart = pYpos;
 
             sinkriseDistance = 100; // For adjustable sink/rise length
+
+            sinkriseStart = yPosition; // Gets starting position of behaviour
         }
 
         /// METHOD: Update - will be called repeatedly by the Update loop in Simulation
@@ -77,67 +79,101 @@ namespace FishORama
         {
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
 
-            switch (sinkBehaviour) 
+            // Alternate Behvaiours
+            if (sinkBehaviour != 1) // If NOT sinking/rising
             {
-
-                // Zig Zag Behaviour
-                case 0:
-                    xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
-                    yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
-
-                    if (yPosition > (zigzagYStart + 50)) // If Y position more than start of zigzag, including the zigzag length, change direction
-                    {
-                        yDirection = -1;
-                    }
-                    else if (yPosition < (zigzagYStart - 50)) 
-                    {
-                        yDirection = 1;
-                    }
-                    break;
-
-                // Sink / Rise Behaviour
-                case 1:
-                    sinkriseStart = yPosition; // Gets starting position of behaviour
-                    xSpeed = 0;
-                    ySpeed = 1;
-                    if (yDirection == -1)
-                    {
-                        while (yPosition > (sinkriseStart - 100)) // While current pos > (starting pos - 100), sink 
-                        {
-                            yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
-                        }
-                    }
-                    else if (yDirection == 1)
-                    {
-                        while (yPosition < (sinkriseStart + 100))
-                        {
-                            yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
-                        } 
-                    }
-                    sinkBehaviour = 0; // Resets behaviour
-                    ySpeed = initYSpeed; // Resets speed
-                    xSpeed = initXSpeed; 
-                    break;
+                // ????????
             }
+
+
+            // Zig Zag Behaviour
+            if (sinkBehaviour == 0) // If zigzag behaviour is active
+            {
+                xSpeed = initXSpeed;
+                ySpeed = initYSpeed;
+
+                xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
+                yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
+
+                if (yPosition > (zigzagYStart + 50)) // If Y position more than start of zigzag, including the zigzag length, change direction
+                {
+                    yDirection = -1;
+                }
+                else if (yPosition < (zigzagYStart - 50))
+                {
+                    yDirection = 1;
+                }
+            }
+
+            // Sink / Rise Behaviour
+            if (sinkBehaviour == 1) // If sink/rise behaviour is active
+            {
+                xSpeed = 0;
+                ySpeed = 1;
+                if (yDirection == -1) // If going down
+                {
+                    if (yPosition > (sinkriseStart - 100)) // If current pos > (starting pos - 100), sink 
+                    {
+                        yPosition += ySpeed * yDirection;
+                    }
+                    else
+                    {
+                        sinkBehaviour = 0; // Resets behaviour
+                    }
+                }
+                else if (yDirection == 1) // Else if going up
+                {
+                    if (yPosition < (sinkriseStart + 100)) // If current pos < (starting pos + 100), rise 
+                    {
+                        yPosition += ySpeed * yDirection;
+                    }
+                    else
+                    {
+                        sinkBehaviour = 0; // Resets behaviour
+                    }
+                }
+            }
+
+
 
 
             // Boundary Constraints
             if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the right border
             {
-                xDirection = -1;
+                if (sinkBehaviour != 1) // If NOT sinking/rising
+                {
+                    xDirection = -1; // Flip direction
+                } 
+                else { xPosition -= 1; }    // Else teleport back
+                sinkBehaviour = 0;          // And reset behaviour to zigzag
             }
             else if (xPosition < ((screen.width / 2 * -1) + (assetWidth / 2))) // if it hits the left border
             {
-                xDirection = 1;
+                if (sinkBehaviour != 1) // If NOT sinking/rising
+                {
+                    xDirection = 1; // Flip direction
+                } 
+                else { xPosition += 1; }    // Else teleport back
+                sinkBehaviour = 0;          // And reset behaviour to zigzag
             }
 
             if (yPosition > ((screen.height / 2) - (assetHeight / 2))) // if it hits the top
             {
-                yDirection = -1;
+                if (sinkBehaviour != 1) // If NOT sinking/rising
+                {
+                    yDirection = -1; // Flip direction
+                } 
+                else {  yPosition -= 1; }   // Else teleport back
+                sinkBehaviour = 0;          // And reset behaviour to zigzag
             }
             else if (yPosition < ((screen.height / 2 * -1) + (assetHeight / 2))) // if it hits a bottom border, turn it around
             {
-                yDirection = 1;
+                if (sinkBehaviour != 1) // If NOT sinking/rising
+                {
+                    yDirection = 1; // Flip direction
+                } 
+                else { yPosition += 1; }    // Else teleport back
+                sinkBehaviour = 0;          // And reset behaviour to zigzag
             }
 
 
