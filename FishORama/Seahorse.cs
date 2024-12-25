@@ -28,13 +28,24 @@ namespace FishORama
         // *** ADD YOUR CLASS VARIABLES HERE *** 
         Random rand;
 
+            // Speed Variables
         float xSpeed;
         float ySpeed;
-
+        float initXSpeed;
+        float initYSpeed;
+            
+            // Asset Variables
         int assetHeight = 128;
         int assetWidth = 74;
 
+            // Behaviour Variables
         float zigzagYStart;
+
+        int sinkriseDistance;
+        float sinkriseStart;
+
+        int sinkBehaviour = 1; // Zizag = 0, Sink/Rise = 1 - Using switch case allows for future behaviour implementation
+
         /// CONSTRUCTOR: Seahorse Constructor
         /// The elements in the brackets are PARAMETERS, which will be covered later in the course
         public Seahorse(string pTextureID, float pXpos, float pYpos, Screen pScreen, ITokenManager pTokenManager, Random pRand)
@@ -52,8 +63,12 @@ namespace FishORama
             // *** ADD OTHER INITIALISATION (class setup) CODE HERE ***
             xSpeed = rand.Next(2, 6); // randomises horizontal speed between the ranges
             ySpeed = xSpeed;
+            initXSpeed = xSpeed;
+            initYSpeed = ySpeed;
 
             zigzagYStart = pYpos;
+
+            sinkriseDistance = 100; // For adjustable sink/rise length
         }
 
         /// METHOD: Update - will be called repeatedly by the Update loop in Simulation
@@ -61,21 +76,49 @@ namespace FishORama
         public void Update()
         {
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
-            xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
 
-            yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
-
-
-            // Zig Zag Behaviour
-            if (yPosition > (zigzagYStart + 50))
+            switch (sinkBehaviour) 
             {
-                yDirection = -1;
-            }
-            else if (yPosition < (zigzagYStart - 50))
-            {
-                yDirection = 1;
-            }
 
+                // Zig Zag Behaviour
+                case 0:
+                    xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
+                    yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
+
+                    if (yPosition > (zigzagYStart + 50)) // If Y position more than start of zigzag, including the zigzag length, change direction
+                    {
+                        yDirection = -1;
+                    }
+                    else if (yPosition < (zigzagYStart - 50)) 
+                    {
+                        yDirection = 1;
+                    }
+                    break;
+
+                // Sink / Rise Behaviour
+                case 1:
+                    sinkriseStart = yPosition; // Gets starting position of behaviour
+                    xSpeed = 0;
+                    ySpeed = 1;
+                    if (yDirection == -1)
+                    {
+                        while (yPosition > (sinkriseStart - 100)) // While current pos > (starting pos - 100), sink 
+                        {
+                            yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
+                        }
+                    }
+                    else if (yDirection == 1)
+                    {
+                        while (yPosition < (sinkriseStart + 100))
+                        {
+                            yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
+                        } 
+                    }
+                    sinkBehaviour = 0; // Resets behaviour
+                    ySpeed = initYSpeed; // Resets speed
+                    xSpeed = initXSpeed; 
+                    break;
+            }
 
 
             // Boundary Constraints
