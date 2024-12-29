@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FishORamaEngineLibrary;
 using System.Diagnostics.Eventing.Reader;
+using System.Threading;
 
 namespace FishORama
 {
@@ -71,6 +72,7 @@ namespace FishORama
             sinkriseDistance = 100; // For adjustable sink/rise length
 
             sinkriseStart = yPosition; // Gets starting position of behaviour
+
         }
 
         /// METHOD: Update - will be called repeatedly by the Update loop in Simulation
@@ -80,9 +82,9 @@ namespace FishORama
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
 
             // Alternate Behvaiours
-            if (sinkBehaviour != 1) // If NOT sinking/rising
-            {
-                // ????????
+            if ((sinkBehaviour != 1) && (rand.Next(1, 1501) == 1)) // If NOT sinking/rising AND rand rolls 1 in 1500 chance
+            {  
+                sinkBehaviour = 1; // Make sink/rise
             }
 
 
