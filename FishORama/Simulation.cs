@@ -28,7 +28,7 @@ namespace FishORama
         // *** ADD YOUR CLASS VARIABLES HERE ***
         // Variables to hold fish will be declared here
             
-        Random rand;
+        Random rand; // Declares rand variable
 
             // Orange Fish
         int orangeFishHeight = 86;
@@ -63,7 +63,6 @@ namespace FishORama
 
             // *** ADD OTHER INITIALISATION (class setup) CODE HERE ***
             rand = new Random();
-
 
 
         }
@@ -125,8 +124,6 @@ namespace FishORama
             }
 
 
-
-
         }
 
         /// METHOD: Update - called 60 times a second by the FishORama engine when the program is running
@@ -137,18 +134,18 @@ namespace FishORama
             // *** ADD YOUR UPDATE CODE HERE ***
             // Each fish object (sitting in a variable) must have Update() called on it here
 
-            orangeFish1.Update();
+            orangeFish1.Update(); // Update orange fish
 
-            piranha1.Update();
+            piranha1.Update(); // Update piranha
 
-            foreach (Urchin fish in urchinArray)
+            foreach (Urchin fish in urchinArray) // For each fish in urchin array
             {
-            fish.Update(); 
+            fish.Update(); // Update it
             }
 
-            foreach (Seahorse fish in seahorseArray) 
+            foreach (Seahorse fish in seahorseArray) // For each fish in seahorse array
             { 
-            fish.Update(); 
+            fish.Update(); // Update it
             }
         }
     }

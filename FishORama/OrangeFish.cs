@@ -52,7 +52,7 @@ namespace FishORama
 
             // *** ADD OTHER INITIALISATION (class setup) CODE HERE ***
             xSpeed = rand.Next(2, 6); // randomises horizontal speed between the ranges
-            ySpeed = xSpeed / 2;
+            ySpeed = xSpeed / 2; // ySpeed half of xSpeed
 
         }
 
@@ -65,26 +65,26 @@ namespace FishORama
 
             if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the right border
             {
-                if (rand.Next(0, 4) == 1) yDirection *= -1;
-                xDirection = -1;
+                if (rand.Next(0, 4) == 1) yDirection *= -1; // 1 In 4 chance to flip yDirection
+                xDirection = -1; // And change xDirection
             }
             else if (xPosition < ((screen.width / 2 * -1) + (assetWidth / 2))) // if it hits the left border
             {
-                if (rand.Next(0, 4) == 1) yDirection *= -1;
-                xDirection = 1;
+                if (rand.Next(0, 4) == 1) yDirection *= -1; // 1 In 4 chance to flip yDirection
+                xDirection = 1; // And change xDirection
             } 
 
             yPosition += ySpeed * yDirection; // 'yPosition + xSpeed * Direction' & assigns it
 
             if (yPosition > ((screen.height / 2) - (assetHeight / 2))) // if it hits the top
             {
-                if (rand.Next(0, 2) == 1) xDirection *= -1; // Flips a coin to change it's vertical direction when hitting the border, if its 1 flip the x direction
-                yDirection = -1;
+                if (rand.Next(0, 2) == 1) xDirection *= -1; // Flips a coin to change it's horizontal direction when hitting the border, if its 1 flip the x direction
+                yDirection = -1; // And change yDirection
             }
             else if (yPosition < ((screen.height / 2 * -1) + (assetHeight / 2))) // if it hits a bottom border, turn it around
             {
-                if (rand.Next(0, 2) == 1) xDirection *= -1;
-                yDirection = 1;  // If coin flip is 0, dont change its vert 
+                if (rand.Next(0, 2) == 1) xDirection *= -1; // Flips a coin to change it's horizontal direction when hitting the border, if its 1 flip the x direction
+                yDirection = 1;  // And change yDirection
             }
             
 

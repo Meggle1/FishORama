@@ -114,7 +114,7 @@ namespace FishORama
                 ySpeed = 1;
                 if (yDirection == -1) // If going down
                 {
-                    if (yPosition > (sinkriseStart - 100)) // If current pos > (starting pos - 100), sink 
+                    if (yPosition > (sinkriseStart - sinkriseDistance)) // If current pos > (starting pos - 100), sink 
                     {
                         yPosition += ySpeed * yDirection;
                     }
@@ -125,7 +125,7 @@ namespace FishORama
                 }
                 else if (yDirection == 1) // Else if going up
                 {
-                    if (yPosition < (sinkriseStart + 100)) // If current pos < (starting pos + 100), rise 
+                    if (yPosition < (sinkriseStart + sinkriseDistance)) // If current pos < (starting pos + 100), rise 
                     {
                         yPosition += ySpeed * yDirection;
                     }

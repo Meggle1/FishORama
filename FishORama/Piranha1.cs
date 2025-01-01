@@ -33,6 +33,9 @@ namespace FishORama
         float xSpeed;
         float ySpeed;
 
+        float initXSpeed;
+        float initYSpeed;
+
         int assetHeight = 86;
         int assetWidth = 128;
 
@@ -52,8 +55,10 @@ namespace FishORama
 
             // *** ADD OTHER INITIALISATION (class setup) CODE HERE ***
             xSpeed = rand.Next(2, 6); // randomises horizontal speed between the ranges
-            //ySpeed = ;
+            initXSpeed = xSpeed;
 
+            ySpeed = 0;
+            initYSpeed = ySpeed;
         }
 
         /// METHOD: Update - will be called repeatedly by the Update loop in Simulation
@@ -61,7 +66,10 @@ namespace FishORama
         public void Update()
         {
             // *** ADD YOUR MOVEMENT/BEHAVIOUR CODE HERE ***
+
+            // Normal Behaviour
             xPosition += xSpeed * xDirection; // 'xPosition + xSpeed * xDirection' & assigns it
+            yPosition += ySpeed * yDirection;
 
             if (xPosition > ((screen.width / 2) - (assetWidth / 2))) // if it hits the right border
             {
@@ -74,11 +82,51 @@ namespace FishORama
                 xDirection = 1;
             }
 
-            if (tokenManager != null)
+
+            // Hungry Behaviour
+            if (tokenManager.ChickenLeg != null)
             {
+                xSpeed = 6; // Set speed to 6
+                ySpeed = 6;
 
+                /* Below calculations given 5 pixel leeway to stop piranha jittering */
+
+                if (xPosition > (tokenManager.ChickenLeg.Position.X + 5)) // Else if X position > chickenleg X position
+                {
+                    xDirection = -1; // Go left
+                } else if (xPosition < (tokenManager.ChickenLeg.Position.X - 5)) // Else if X position < chickenleg X position
+                {
+                    xDirection = 1; // Go right
+                } else
+                {
+                    xDirection = 0; // Else stop going left or right
+                }
+
+                if (yPosition > (tokenManager.ChickenLeg.Position.Y + 5))
+                {
+                    yDirection = -1; // Go down
+                } else if (yPosition < (tokenManager.ChickenLeg.Position.Y - 5))
+                {
+                    yDirection = 1; // Go up
+                } else
+                {
+                    yDirection = 0; // Else stop going up or down
+                }
+
+                if (
+                    (xPosition > (tokenManager.ChickenLeg.Position.X - 10)) && (xPosition < (tokenManager.ChickenLeg.Position.X + 10)) /* If within 10 pixel range of chicken leg's x position */
+                    && /* AND */
+                    (yPosition > (tokenManager.ChickenLeg.Position.Y - 10)) && (yPosition < (tokenManager.ChickenLeg.Position.Y + 10)) /* within 10 pixel range of chicken leg's y position */
+                   )
+                {
+                    tokenManager.RemoveChickenLeg(); // If above is satisfied, remove chicken leg
+                }
             }
-
+            else // Else if chicken leg not in scene
+            { 
+                xSpeed = initXSpeed; // Reset speeds
+                ySpeed = initYSpeed;
+            }
         }
 
         /// METHOD: Draw - Called repeatedly by FishORama engine to draw token on screen
