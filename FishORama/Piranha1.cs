@@ -99,7 +99,7 @@ namespace FishORama
                     xDirection = 1; // Go right
                 } else
                 {
-                    xDirection = 0; // Else stop going left or right
+                    xSpeed = 0; // Else stop going left or right
                 }
 
                 if (yPosition > (tokenManager.ChickenLeg.Position.Y + 5))
@@ -110,7 +110,7 @@ namespace FishORama
                     yDirection = 1; // Go up
                 } else
                 {
-                    yDirection = 0; // Else stop going up or down
+                    ySpeed = 0; // Else stop going up or down
                 }
 
                 if (
